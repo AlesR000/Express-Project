@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct ExpressApp: App {
+    
+    @StateObject private var dataController = DataController()
+    
     var body: some Scene {
+        
         WindowGroup {
-            ContentView()
+            CollectionViewModel()
+                .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
+    
 }
