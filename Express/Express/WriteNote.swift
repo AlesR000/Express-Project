@@ -15,6 +15,8 @@ struct WriteNote: View {
     @State var title: String = ""
     @State var noteBody: String = ""
     
+    @State var mood: String = "neutral"
+    
     var body: some View {
         
         
@@ -27,12 +29,20 @@ struct WriteNote: View {
                 .frame(maxHeight: .infinity)
                 .padding()
             
+            Picker("Current Mood", selection: $mood){
+                Text("amazing")
+                Text("happy")
+                Text("neutral")
+                Text("sad")
+                Text("terrible")
+            }
         }
         
         Button("save"){
             let note = Note(context: moc)
             note.title = title
             note.body = noteBody
+            note.mood = moodToInt(mood: mood)
             note.date = Date.now
             
             try? moc.save()
@@ -42,6 +52,20 @@ struct WriteNote: View {
         
         
     }
+    
+    func moodToInt(mood: String) -> Int16{
+        switch mood{
+            case "amazing": return 5
+            case "happy": return 4
+            case "neutral": return 3
+            case "sad": return 2
+            case "terrible": return 1
+        default:
+            return 0
+        }
+    }
+    
+    
 }
 
 #Preview {

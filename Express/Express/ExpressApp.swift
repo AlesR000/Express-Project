@@ -15,7 +15,7 @@ struct ExpressApp: App {
     var body: some Scene {
         
         WindowGroup {
-            CollectionViewModel()
+            Home()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }

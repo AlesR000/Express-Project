@@ -10,6 +10,7 @@ import SwiftUI
 struct NoteView: View {
     
     @StateObject var note: Note
+    var lod : Int16 = 0
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -22,6 +23,7 @@ struct NoteView: View {
                     .font(.subheadline)
                     .padding([.leading, .bottom, .trailing])
                 Spacer()
+                Text(note.mood.description)
             }
             Text(note.body ?? "no body")
                 .padding()

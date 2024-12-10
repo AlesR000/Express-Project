@@ -8,34 +8,45 @@
 import SwiftUI
 import CoreData
 
+/*
 struct CollectionViewModel: View {
     
+    //MARK: Properties
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: []) var notes: FetchedResults<Note>
+    
+    
+    @State var selectedDay: Date? = nil
+    @State private var selectedNote: Note? = nil
+    
     
     @State var showModal: Bool = false
     @State var showNote: Bool = false
     
+    //MARK: Body
     var body: some View {
-        
         
         ZStack{
             
-            Color.blue.ignoresSafeArea()
+            //Color.teal.ignoresSafeArea()
+            //Color.white.ignoresSafeArea()
             
             VStack {
                 
-                CalendarView()
+                CalendarWeekView(selectedDay: $selectedDay)
+                
+                Text(selectedDay?.formatted(date: .abbreviated, time: .omitted) ?? "Select a day")
+                
                 
                 Button("Express your day"){
                     showModal = true
                 }
                 .font(.title)
-                .foregroundStyle(.black)
                 .sheet(isPresented: $showModal){WriteNote(showModal: $showModal)}
                 .padding()
                 
-                
+                FilteredNotes(filter: $selectedDay?)
+                }
                 
                 List(){
                     
@@ -71,21 +82,22 @@ struct CollectionViewModel: View {
                     ForEach(notes){note in
                     
                         Button{
+                            
+                            selectedNote = note
                             print("\(note.title ?? "no title") pressed")
+                            
                             showNote = true
                             
                         }label:{
                             VStack(alignment: .leading){
                                 
                                 Text(note.title ?? "no title")
-                                    .foregroundStyle(.black)
                                     .underline()
                                     .font(.title2)
                                     .padding([.top, .leading,.trailing])
                                     .padding(.bottom, 5)
                                 
                                 Text(note.body ?? "no body")
-                                    .foregroundStyle(.black)
                                     .padding([.leading, .bottom, .trailing])
                                     .multilineTextAlignment(.leading)
                                 
@@ -93,30 +105,35 @@ struct CollectionViewModel: View {
                                     Spacer()
                                     
                                     Text(note.date?.formatted(date: .abbreviated, time: .shortened) ?? "no date")
-                                        .foregroundStyle(.black)
                                         .multilineTextAlignment(.trailing)
                                     
                                 }
                                 .padding([.bottom, .trailing], 5.0)
+                                
                             }
                             .background(.ultraThinMaterial)
                             .containerShape(RoundedRectangle(cornerRadius: 10))
                             .padding()
+                            
                         }
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
-                        .sheet(isPresented: $showNote){NoteView(note: note)}
                         
                     }
                     .onDelete(perform: deleteNote)
+                    .sheet(isPresented: $showNote) {
+                        if let selectedNote = selectedNote {
+                            NoteView(note: selectedNote)
+                        }
+                    }
                     
                 }.listStyle(PlainListStyle())
            
-            }
         }
     }
     
     
+    //MARK: Functions
     func deleteNote(at offsets: IndexSet){
         for offset in offsets {
             let note = notes[offset]
@@ -124,6 +141,7 @@ struct CollectionViewModel: View {
             try? moc.save()
         }
     }
+    
     
 }
 
@@ -152,6 +170,9 @@ struct CollectionViewModel: View {
  }
  */
 
+    //MARK: Preview
 #Preview {
     CollectionViewModel()
 }
+
+*/
