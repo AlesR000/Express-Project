@@ -15,7 +15,7 @@ struct WriteNote: View {
     @State var title: String = ""
     @State var noteBody: String = ""
     
-    @State var mood: String = "neutral"
+    @State var mood: String = ""
     
     var body: some View {
         
@@ -25,7 +25,7 @@ struct WriteNote: View {
             TextField("Title", text: $title)
                 .padding()
             
-            TextField("Note", text: $noteBody, axis: .vertical)
+            TextField("write a note", text: $noteBody, axis: .vertical)
                 .frame(maxHeight: .infinity)
                 .padding()
             
@@ -36,6 +36,7 @@ struct WriteNote: View {
                 Text("sad")
                 Text("terrible")
             }
+            
         }
         
         Button("save"){
