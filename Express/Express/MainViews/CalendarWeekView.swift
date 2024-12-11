@@ -24,11 +24,11 @@ struct CalendarWeekView: View {
                     currentWeekStart = previousWeek(from: currentWeekStart)
                 }) {
                     Image(systemName: "chevron.left")
+                        .foregroundStyle(.black)
                 }
                 Spacer()
                 
                 Text(formatWeekRange(from: currentWeekStart))
-                    .padding()
                     .font(.title2)
                     .lineLimit(1)
                 
@@ -38,6 +38,7 @@ struct CalendarWeekView: View {
                     currentWeekStart = nextWeek(from: currentWeekStart)
                 }) {
                     Image(systemName: "chevron.right")
+                        .foregroundStyle(.black)
                 }
             }
             
@@ -47,19 +48,19 @@ struct CalendarWeekView: View {
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7)) {
                 ForEach(days, id: \.self) { day in
                     
-                    VStack{
-                        Text(day, format: .dateTime.weekday())
+                    VStack(spacing: 10){
                         
-                        ZStack {
+                        Text(day, format: .dateTime.weekday(.short))
+                            .foregroundStyle(.indigo)
+                            .fontWeight(.bold)
                             
-                            Text(day, format: .dateTime.day())
-                                .frame(maxWidth: .infinity)
-                                .background(Circle().fill(Color.mint))
-                        }
+                        Text(day, format: .dateTime.day())
+                            .font(.title3)
+                            .frame(maxWidth: .infinity)
+                        
                     }
-                    .onTapGesture {
-                        selectedDay = day + 86400
-                    }
+                    .background(RoundedRectangle(cornerRadius: 10).fill(.thinMaterial))
+                    .onTapGesture {selectedDay = day + 86400}
                     
                 }
                 

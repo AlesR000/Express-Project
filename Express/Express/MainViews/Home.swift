@@ -12,6 +12,7 @@ struct Home: View {
     @State var showNote: Bool = false
     @State var showWritingScreen: Bool = false
     @State var selectedDay: Date?
+    @State var selectedNote: Note?
     
     @Environment(\.managedObjectContext) var moc
     
@@ -19,6 +20,7 @@ struct Home: View {
     var body: some View {
         
         CalendarWeekView(selectedDay: $selectedDay)
+            .background(Color.blue.opacity(0.5))
         
         
         Button{
@@ -38,8 +40,14 @@ struct Home: View {
             WriteNote(showModal: $showWritingScreen)
         }
         
-        FilteredNotes(filter: selectedDay ?? Date())
         
+        FilteredNotes(filter: selectedDay ?? Date(), selectedNote: $selectedNote, showNote: $showNote)
+            .sheet(isPresented: $showNote){
+                if let selectedNote = selectedNote {
+                    NoteView(note: selectedNote)
+                }
+            }
+         
     }
 }
 

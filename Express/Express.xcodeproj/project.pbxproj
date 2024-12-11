@@ -269,7 +269,6 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Express/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "The app accesses your media library so you can add photos from your gallery to your notes";
 				INFOPLIST_KEY_NSCameraUsageDescription = "The app uses the camera to take photos to add in your notes";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "The app uses the microphone to record voice messages for your notes";
@@ -304,7 +303,6 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Express/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "The app accesses your media library so you can add photos from your gallery to your notes";
 				INFOPLIST_KEY_NSCameraUsageDescription = "The app uses the camera to take photos to add in your notes";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "The app uses the microphone to record voice messages for your notes";

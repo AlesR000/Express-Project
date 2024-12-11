@@ -12,14 +12,62 @@ struct WriteNote: View {
     @Binding var showModal: Bool
     @Environment(\.managedObjectContext) var moc
     
-    @State var title: String = ""
-    @State var noteBody: String = ""
+    @State private var title: String = ""
+    @State private var noteBody: String = ""
+    @State private var mood: Int16 = 3
     
-    @State var mood: String = ""
+    let moods: [String] = ["amazing", "happy", "neutral", "sad", "terrible"]
+    let emojis: [String] = ["AmazingEmoji", "HappyEmoji", "NeutralEmoji", "SadEmoji", "TerribleEmoji"]
     
     var body: some View {
         
         
+        
+        VStack{
+            HStack{
+                
+                Spacer()
+                
+                Button("Add"){
+                    let note = Note(context: moc)
+                    note.title = title
+                    note.body = noteBody
+                    note.mood = mood
+                    note.date = Date.now
+                    
+                    try? moc.save()
+                    showModal.toggle()
+                }
+                .foregroundStyle(.red)
+                
+            }.padding()
+            
+            Text ("how are you feeling today?")
+                .font(.headline)
+            
+            HStack{
+                ForEach(1..<6){ index in
+                    VStack{
+                        Image(emojis[index-1])
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity)
+                        
+                        Text(moods[index-1])
+                            .font(.footnote)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .padding(10)
+                    .onTapGesture { mood = Int16(6-index) }
+                    
+                }
+                
+            }
+            
+        }
+        .padding(.vertical)
+        .background(Color.blue.opacity(0.5))
+
         
         List{
             TextField("Title", text: $title)
@@ -28,44 +76,11 @@ struct WriteNote: View {
             TextField("write a note", text: $noteBody, axis: .vertical)
                 .frame(maxHeight: .infinity)
                 .padding()
-            
-            Picker("Current Mood", selection: $mood){
-                Text("amazing")
-                Text("happy")
-                Text("neutral")
-                Text("sad")
-                Text("terrible")
-            }
-            
-        }
         
-        Button("save"){
-            let note = Note(context: moc)
-            note.title = title
-            note.body = noteBody
-            note.mood = moodToInt(mood: mood)
-            note.date = Date.now
-            
-            try? moc.save()
-            showModal.toggle()
-        }
-        
+        }.listStyle(PlainListStyle())
         
         
     }
-    
-    func moodToInt(mood: String) -> Int16{
-        switch mood{
-            case "amazing": return 5
-            case "happy": return 4
-            case "neutral": return 3
-            case "sad": return 2
-            case "terrible": return 1
-        default:
-            return 0
-        }
-    }
-    
     
 }
 
