@@ -46,6 +46,9 @@ struct NoteView: View {
                 Text(note.body ?? "no body")
                     .padding()
                 
+                //DataToImage(note.wrappedImage)
+                //DataToImage(note.wrappedImage).resizable().scaledToFit().frame(height: 200)
+                
             }
             .padding(5)
             .background(.thinMaterial)
@@ -53,6 +56,16 @@ struct NoteView: View {
             .padding()
         }
     }
+    
+    
+    /*
+    func DataToImage(_ data: Data) -> Image {
+        let uiImageFromData = UIImage(data: data)
+        let result = Image(uiImage: uiImageFromData?? UIImage(named: "placeholder"))
+        return result
+    }
+    */
+    
 }
 
 /*

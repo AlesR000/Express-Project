@@ -20,7 +20,9 @@ struct WriteNote: View {
     @State var selectedPhoto: PhotosPickerItem?
     @State var selectedPhotoData: Data?
     
+    
     let moods: [String] = ["amazing", "happy", "neutral", "sad", "terrible"]
+    
     let emojis: [String] = ["AmazingEmoji", "HappyEmoji", "NeutralEmoji", "SadEmoji", "TerribleEmoji"]
     
     var body: some View {
@@ -36,14 +38,19 @@ struct WriteNote: View {
                     note.body = noteBody
                     note.mood = mood
                     note.date = Date.now
+                    note.image = selectedPhotoData
+                    
                     
                     try? moc.save()
                     showModal.toggle()
+                    
+                    
                 }
                 .foregroundStyle(.red)
                 .padding(5)
                 .background(Color.white)
                 .containerShape(RoundedRectangle(cornerRadius: 10))
+                
                 
             }.padding()
             
@@ -74,11 +81,14 @@ struct WriteNote: View {
         }
         .padding(.vertical)
         .background(Color.blue)
-
         
         List{
             TextField("Title", text: $title)
                 .padding()
+            /*
+                .accessibilityLabel("Title") TITOLO
+                .accessibilityHint("Enter a title") DESCRIZIONE
+            */
             
             TextField("write a note", text: $noteBody, axis: .vertical)
                 .frame(maxHeight: .infinity)
@@ -91,18 +101,20 @@ struct WriteNote: View {
                     .frame(maxWidth: .infinity)
             }
             
-        }.listStyle(PlainListStyle())
+        }
+        .listStyle(PlainListStyle())
+        
         
         Spacer()
             
-        WritingToolBar()
+        
+        WritingToolBar(selectedPhoto: $selectedPhoto, selectedPhotoData: $selectedPhotoData)
         
     }
     
     
-    
-    
 }
+
 #Preview {
     WriteNote(showModal: .constant(true))
 }

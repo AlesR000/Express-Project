@@ -10,8 +10,8 @@ import PhotosUI
 
 struct WritingToolBar: View {
     
-    @State var selectedPhoto: PhotosPickerItem?
-    @State var selectedPhotoData: Data?
+    @Binding var selectedPhoto: PhotosPickerItem?
+    @Binding var selectedPhotoData: Data?
     @State var showCamera = false
     
     var body: some View {
@@ -37,18 +37,17 @@ struct WritingToolBar: View {
             
             Spacer()
             
-            if selectedPhotoData == nil {
-                PhotosPicker(selection: $selectedPhoto, matching: .images, photoLibrary: .shared()) {
-                    Label("", systemImage: "photo")
-                        .foregroundStyle(.white)
-                }
-                
-                .task(id: selectedPhoto){
-                    if let data = try? await selectedPhoto?.loadTransferable(type: Data.self){
-                        selectedPhotoData = data
-                    }
+            PhotosPicker(selection: $selectedPhoto, matching: .images, photoLibrary: .shared()) {
+                Label("", systemImage: "photo")
+                    .foregroundStyle(.white)
+            }
+            .task(id: selectedPhoto){
+                if let data = try? await selectedPhoto?.loadTransferable(type: Data.self){
+                    selectedPhotoData = data
                 }
             }
+                
+            
             
             Spacer()
             
@@ -68,6 +67,10 @@ struct WritingToolBar: View {
     }
 }
 
+/*
 #Preview {
+    
     WritingToolBar()
+    
 }
+*/

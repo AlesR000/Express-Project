@@ -15,9 +15,11 @@ struct ExpressApp: App {
     var body: some Scene {
         
         WindowGroup {
+            
             Home()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
         }
+        
     }
     
 }
