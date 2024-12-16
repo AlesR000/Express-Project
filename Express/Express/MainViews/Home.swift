@@ -2,12 +2,13 @@
 //  Home.swift
 //  Express
 //
-//  Created by Alessandro Rippa on 10/12/24.
+//  Created by Alessandro Rippa on 12/12/24.
 //
 
 import SwiftUI
 
 struct Home: View {
+    
     //MARK: Properties
     @State var showNote: Bool = false
     @State var showWritingScreen: Bool = false
@@ -20,21 +21,24 @@ struct Home: View {
     var body: some View {
         
         CalendarWeekView(selectedDay: $selectedDay)
-            .background(Color.blue.opacity(0.5))
+            .background(Color.blue)
         
         
         Button{
             showWritingScreen = true
         }
         label:{
+            
             HStack{
-                Spacer()
-                Text("Express your day")
+                
                 Image("AddButton")
                     .resizable()
                     .frame(width: 50,height: 50)
+                Text("Express your day")
+                Spacer()
+                
             }
-            .padding(.horizontal)
+            .padding()
         }
         .sheet(isPresented: $showWritingScreen){
             WriteNote(showModal: $showWritingScreen)

@@ -11,7 +11,7 @@ struct NoteView: View {
     
     @StateObject var note: Note
     let emojis: [String] = ["TerribleEmoji", "SadEmoji", "NeutralEmoji", "HappyEmoji", "AmazingEmoji"]
-    let moodColors: [Color] = [.indigo, .blue, .gray, .cyan, .yellow]
+    let moodColors: [Color] = [.indigo, .blue, .gray.opacity(0.5), .cyan, .yellow]
     
     var body: some View {
         

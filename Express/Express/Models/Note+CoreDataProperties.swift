@@ -33,10 +33,6 @@ extension Note {
         date ?? Date()
     }
     
-    var wrappedMood: Int16 {
-        mood
-    }
-    
 }
 
 extension Note : Identifiable {

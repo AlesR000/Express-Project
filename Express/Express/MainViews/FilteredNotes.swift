@@ -10,10 +10,11 @@ import SwiftUI
 
 struct FilteredNotes: View {
     
-    @FetchRequest var fetchRequest: FetchedResults<Note>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Note.date, ascending: false)], animation: .default) var fetchRequest: FetchedResults<Note>
     @Environment(\.managedObjectContext) var moc
     @Binding var selectedNote: Note?
     @Binding var showNote: Bool
+    
     let emojis: [String] = ["TerribleEmoji", "SadEmoji", "NeutralEmoji", "HappyEmoji", "AmazingEmoji"]
     
     var body: some View {
@@ -22,22 +23,23 @@ struct FilteredNotes: View {
             
             ForEach(fetchRequest){ note in
                 
-                
-                
                 Button{
+                    
                     selectedNote = note
                     showNote = true
-                }
-                label:{
+                    
+                }label:{
                     
                     VStack(alignment: .leading){
                         
-                        
                         HStack(){
+                            
                             Text(note.wrappedTitle)
                                 .font(.title2)
                                 .fontWeight(.semibold)
+                            
                             Spacer()
+                            
                             Image(emojis[Int(note.mood) - 1])
                                 .resizable()
                                 .scaledToFit()
@@ -48,6 +50,7 @@ struct FilteredNotes: View {
                         Text(note.wrappedBody)
                         
                         HStack{
+                            
                             Spacer()
                             Text(note.wrappedDate.formatted(.dateTime))
                                 .fontWeight(.light)
@@ -56,28 +59,33 @@ struct FilteredNotes: View {
                         }
                         
                     }
+                    
                 }
-            }.onDelete(perform: deleteNote)
-            
-            
-            
-            
-        }.listStyle(PlainListStyle())
-        
+                
+            }
+            .onDelete(perform: deleteNote)
+        }
+        .listStyle(PlainListStyle())
     }
     
     init (filter: Date, selectedNote: Binding<Note?>, showNote: Binding<Bool>){
+        
         _fetchRequest = FetchRequest<Note>(sortDescriptors: [], predicate: NSPredicate(format: "date <= %@", filter as CVarArg), animation: .bouncy)
         _selectedNote = selectedNote
         _showNote = showNote
+        
     }
     
     func deleteNote(at offsets: IndexSet){
+        
         for offset in offsets {
+            
             let note = fetchRequest[offset]
             moc.delete(note)
             try? moc.save()
+            
         }
+        
     }
 
 }

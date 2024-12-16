@@ -17,19 +17,20 @@ struct CalendarWeekView: View {
     var body: some View {
         
         
-        VStack {
+        VStack(spacing: 30) {
             
             HStack {
                 Button(action: {
                     currentWeekStart = previousWeek(from: currentWeekStart)
                 }) {
                     Image(systemName: "chevron.left")
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.white)
                 }
                 Spacer()
                 
                 Text(formatWeekRange(from: currentWeekStart))
                     .font(.title2)
+                    .foregroundStyle(.white)
                     .lineLimit(1)
                 
                 Spacer()
@@ -38,7 +39,7 @@ struct CalendarWeekView: View {
                     currentWeekStart = nextWeek(from: currentWeekStart)
                 }) {
                     Image(systemName: "chevron.right")
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.white)
                 }
             }
             
@@ -51,7 +52,7 @@ struct CalendarWeekView: View {
                     VStack(spacing: 10){
                         
                         Text(day, format: .dateTime.weekday(.short))
-                            .foregroundStyle(.indigo)
+                            .foregroundStyle(.blue)
                             .fontWeight(.bold)
                             
                         Text(day, format: .dateTime.day())
@@ -59,7 +60,7 @@ struct CalendarWeekView: View {
                             .frame(maxWidth: .infinity)
                         
                     }
-                    .background(RoundedRectangle(cornerRadius: 10).fill(.thinMaterial))
+                    .background(RoundedRectangle(cornerRadius: 10).fill(.thickMaterial))
                     .onTapGesture {selectedDay = day + 86400}
                     
                 }

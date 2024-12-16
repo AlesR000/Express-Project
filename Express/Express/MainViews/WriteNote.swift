@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct WriteNote: View {
     
@@ -16,12 +17,13 @@ struct WriteNote: View {
     @State private var noteBody: String = ""
     @State private var mood: Int16 = 3
     
+    @State var selectedPhoto: PhotosPickerItem?
+    @State var selectedPhotoData: Data?
+    
     let moods: [String] = ["amazing", "happy", "neutral", "sad", "terrible"]
     let emojis: [String] = ["AmazingEmoji", "HappyEmoji", "NeutralEmoji", "SadEmoji", "TerribleEmoji"]
     
     var body: some View {
-        
-        
         
         VStack{
             HStack{
@@ -39,10 +41,14 @@ struct WriteNote: View {
                     showModal.toggle()
                 }
                 .foregroundStyle(.red)
+                .padding(5)
+                .background(Color.white)
+                .containerShape(RoundedRectangle(cornerRadius: 10))
                 
             }.padding()
             
             Text ("how are you feeling today?")
+                .foregroundStyle(.white)
                 .font(.headline)
             
             HStack{
@@ -54,6 +60,7 @@ struct WriteNote: View {
                             .frame(maxWidth: .infinity)
                         
                         Text(moods[index-1])
+                            .foregroundStyle(.white)
                             .font(.footnote)
                             .frame(maxWidth: .infinity)
                     }
@@ -66,7 +73,7 @@ struct WriteNote: View {
             
         }
         .padding(.vertical)
-        .background(Color.blue.opacity(0.5))
+        .background(Color.blue)
 
         
         List{
@@ -77,13 +84,25 @@ struct WriteNote: View {
                 .frame(maxHeight: .infinity)
                 .padding()
         
+            if let selectedPhotoData {
+                Image(uiImage: UIImage(data: selectedPhotoData)!)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity)
+            }
+            
         }.listStyle(PlainListStyle())
         
+        Spacer()
+            
+        WritingToolBar()
         
     }
     
+    
+    
+    
 }
-
 #Preview {
     WriteNote(showModal: .constant(true))
 }
