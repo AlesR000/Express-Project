@@ -98,7 +98,7 @@ struct WriteNote: View {
             TextField("write a note", text: $noteBody, axis: .vertical)
                 .frame(maxHeight: .infinity)
                 .padding()
-        
+            
             if let selectedPhotoData {
                 Image(uiImage: UIImage(data: selectedPhotoData)!)
                     .resizable()

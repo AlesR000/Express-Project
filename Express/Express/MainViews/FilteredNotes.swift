@@ -10,11 +10,12 @@ import SwiftUI
 
 struct FilteredNotes: View {
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Note.date, ascending: true)], animation: .default) var fetchRequest: FetchedResults<Note>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Note.date, ascending: false)], animation: .default) var fetchRequest: FetchedResults<Note>
     @Environment(\.managedObjectContext) var moc
     @Binding var selectedNote: Note?
     @Binding var showNote: Bool
     @Binding var selectedDate: Date?
+    @Binding var showEdit: Bool
     
     let emojis: [String] = ["TerribleEmoji", "SadEmoji", "NeutralEmoji", "HappyEmoji", "AmazingEmoji"]
     
@@ -56,11 +57,23 @@ struct FilteredNotes: View {
                         HStack{
                             
                             Spacer()
+                            
                             Text(note.wrappedDate.formatted(.dateTime))
                                 .foregroundStyle(isSelected ? .red : .primary)
                                 .fontWeight(isSelected ? .bold : .light)
-                                .padding(.top, 5)
-                                
+                            
+                            /*
+                            Button {
+                                showEdit = true
+                            } label: {
+                                Image(systemName: "pencil")
+                                    .foregroundStyle(.blue)
+                            }
+                            .sheet(isPresented: $showEdit) {
+                                EditView(passedNote: note, showEdit: $showEdit)
+                            }
+                            */
+                             
                         }
                         
                     }
@@ -75,12 +88,13 @@ struct FilteredNotes: View {
         .listStyle(PlainListStyle())
     }
     
-    init (filter: Date, selectedNote: Binding<Note?>, showNote: Binding<Bool>, selectedDate: Binding<Date?>){
+    init (filter: Date, selectedNote: Binding<Note?>, showNote: Binding<Bool>, selectedDate: Binding<Date?>, showEdit: Binding<Bool>){
         
         _fetchRequest = FetchRequest<Note>(sortDescriptors: [], predicate: NSPredicate(format: "date <= %@", filter as CVarArg), animation: .bouncy)
         _selectedNote = selectedNote
         _showNote = showNote
         _selectedDate = selectedDate
+        _showEdit = showEdit
     }
     
     func deleteNote(at offsets: IndexSet){

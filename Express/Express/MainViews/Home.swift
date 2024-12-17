@@ -14,6 +14,7 @@ struct Home: View {
     @State var showWritingScreen: Bool = false
     @State var selectedDay: Date?
     @State var selectedNote: Note?
+    @State var showEdit: Bool = false
     
     @Environment(\.managedObjectContext) var moc
     
@@ -46,7 +47,7 @@ struct Home: View {
         }
         
         
-        FilteredNotes(filter: selectedDay ?? Date(), selectedNote: $selectedNote, showNote: $showNote, selectedDate: $selectedDay)
+        FilteredNotes(filter: selectedDay ?? Date(), selectedNote: $selectedNote, showNote: $showNote, selectedDate: $selectedDay, showEdit: $showEdit)
             .sheet(isPresented: $showNote){
                 if let selectedNote = selectedNote {
                     NoteView(note: selectedNote)
