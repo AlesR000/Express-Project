@@ -10,10 +10,11 @@ import SwiftUI
 
 struct FilteredNotes: View {
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Note.date, ascending: false)], animation: .default) var fetchRequest: FetchedResults<Note>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Note.date, ascending: true)], animation: .default) var fetchRequest: FetchedResults<Note>
     @Environment(\.managedObjectContext) var moc
     @Binding var selectedNote: Note?
     @Binding var showNote: Bool
+    @Binding var selectedDate: Date?
     
     let emojis: [String] = ["TerribleEmoji", "SadEmoji", "NeutralEmoji", "HappyEmoji", "AmazingEmoji"]
     
@@ -21,7 +22,9 @@ struct FilteredNotes: View {
         
         List{
             
-            ForEach(fetchRequest){ note in
+            ForEach(fetchRequest.reversed()){ note in
+                
+                let isSelected = isTheSameDay(firstDate: note.wrappedDate, secondDate: selectedDate?.addingTimeInterval( -86400) ?? .distantFuture)
                 
                 Button{
                     
@@ -54,7 +57,8 @@ struct FilteredNotes: View {
                             
                             Spacer()
                             Text(note.wrappedDate.formatted(.dateTime))
-                                .fontWeight(.light)
+                                .foregroundStyle(isSelected ? .red : .primary)
+                                .fontWeight(isSelected ? .bold : .light)
                                 .padding(.top, 5)
                                 
                         }
@@ -65,16 +69,18 @@ struct FilteredNotes: View {
                 
             }
             .onDelete(perform: deleteNote)
+            //.scaleEffect(x: 1, y: -1, anchor: .center)
         }
+        //.scaleEffect(x: 1, y: -1, anchor: .center)
         .listStyle(PlainListStyle())
     }
     
-    init (filter: Date, selectedNote: Binding<Note?>, showNote: Binding<Bool>){
+    init (filter: Date, selectedNote: Binding<Note?>, showNote: Binding<Bool>, selectedDate: Binding<Date?>){
         
         _fetchRequest = FetchRequest<Note>(sortDescriptors: [], predicate: NSPredicate(format: "date <= %@", filter as CVarArg), animation: .bouncy)
         _selectedNote = selectedNote
         _showNote = showNote
-        
+        _selectedDate = selectedDate
     }
     
     func deleteNote(at offsets: IndexSet){
@@ -89,6 +95,18 @@ struct FilteredNotes: View {
         
     }
 
+    private func specificDay(date: Date) -> Text {
+        return Text(date.formatted(date: .complete, time: .omitted))
+    }
+    
+    private func isTheSameDay(firstDate: Date, secondDate: Date) -> Bool {
+        let firstDay = specificDay(date: firstDate)
+        let secondDay = specificDay(date: secondDate)
+        
+        return firstDay == secondDay
+    }
+    
+    
 }
 
 /*

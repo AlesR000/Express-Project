@@ -16,6 +16,7 @@ struct WriteNote: View {
     @State private var title: String = ""
     @State private var noteBody: String = ""
     @State private var mood: Int16 = 3
+    @State var selectedEmoji: Int = 0
     
     @State var selectedPhoto: PhotosPickerItem?
     @State var selectedPhotoData: Data?
@@ -64,6 +65,7 @@ struct WriteNote: View {
                         Image(emojis[index-1])
                             .resizable()
                             .scaledToFit()
+                            .grayscale(selectedEmoji == index ? 0 : 1.0)
                             .frame(maxWidth: .infinity)
                         
                         Text(moods[index-1])
@@ -72,7 +74,10 @@ struct WriteNote: View {
                             .frame(maxWidth: .infinity)
                     }
                     .padding(10)
-                    .onTapGesture { mood = Int16(6-index) }
+                    .onTapGesture {
+                        mood = Int16(6-index)
+                        selectedEmoji = index
+                    }
                     
                 }
                 

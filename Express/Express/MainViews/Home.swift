@@ -46,7 +46,7 @@ struct Home: View {
         }
         
         
-        FilteredNotes(filter: selectedDay ?? Date(), selectedNote: $selectedNote, showNote: $showNote)
+        FilteredNotes(filter: selectedDay ?? Date(), selectedNote: $selectedNote, showNote: $showNote, selectedDate: $selectedDay)
             .sheet(isPresented: $showNote){
                 if let selectedNote = selectedNote {
                     NoteView(note: selectedNote)

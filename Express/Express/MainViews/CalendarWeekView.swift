@@ -48,13 +48,18 @@ struct CalendarWeekView: View {
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7)) {
                 ForEach(days, id: \.self) { day in
                     
+                    
+                    let isSelected = isTheSameDay(firstDate: day, secondDate: selectedDay?.addingTimeInterval( -86400) ?? .distantFuture)
+                    
                     VStack(spacing: 10){
                         
                         Text(day, format: .dateTime.weekday(.short))
-                            .foregroundStyle(.blue)
+                            .foregroundStyle(isSelected ? .red : .blue)
+                            //.foregroundStyle(.blue)
                             .fontWeight(.bold)
                             
                         Text(day, format: .dateTime.day())
+                            .foregroundStyle(isSelected ? .red : .primary)
                             .font(.title3)
                             .frame(maxWidth: .infinity)
                         
@@ -72,7 +77,6 @@ struct CalendarWeekView: View {
     
     //MARK: Functions
     
-    // Get the start date of the current week
     private static func getStartOfCurrentWeek() -> Date {
         let calendar = Calendar.current
         let now = Date()
@@ -119,6 +123,18 @@ struct CalendarWeekView: View {
         
         return "\(startString) - \(endString)"
     }
+    
+    private func specificDay(date: Date) -> Text {
+        return Text(date.formatted(date: .complete, time: .omitted))
+    }
+    
+    private func isTheSameDay(firstDate: Date, secondDate: Date) -> Bool {
+        let firstDay = specificDay(date: firstDate)
+        let secondDay = specificDay(date: secondDate)
+        
+        return firstDay == secondDay
+    }
+    
 }
 
     //MARK: Preview
