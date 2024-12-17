@@ -21,6 +21,7 @@ extension Note {
     @NSManaged public var mood: Int16
     @NSManaged public var title: String?
     @NSManaged public var image: Data?
+    @NSManaged public var recording: Data?
 
     var wrappedBody: String {
         body ?? "unknown"
@@ -33,10 +34,7 @@ extension Note {
     var wrappedDate: Date {
         date ?? Date()
     }
-    
-    var wrappedImage: Data {
-        image ?? Data()
-    }
+ 
     
 }
 

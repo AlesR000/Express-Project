@@ -7,6 +7,27 @@
 
 import SwiftUI
 import AVFoundation
+import Photos
+
+struct CameraIcon: View{
+    
+    @State var showCamera = false
+    
+    var body: some View{
+        
+        Button{
+            showCamera = true
+        } label: {
+            Image(systemName: "camera.fill")
+                .foregroundStyle(.white)
+        }
+        .sheet(isPresented: $showCamera) {
+            CameraToolBar(showCamera: $showCamera)
+        }
+        
+    }
+    
+}
 
 struct CameraToolBar: View {
     
@@ -21,13 +42,19 @@ struct CameraToolBar: View {
                 
                 VStack {
                     
+                    Spacer()
                     
+                    Button("switch"){
+                        
+                    }
                     
                 }
             }
         }
     }
 }
+
+
 
 struct CameraPreview: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> CameraViewController {
@@ -36,6 +63,7 @@ struct CameraPreview: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: CameraViewController, context: Context) {}
 }
+
 
 
 class CameraViewController: UIViewController {
@@ -58,11 +86,13 @@ class CameraViewController: UIViewController {
             return
         }
         
+        /*
         guard let backCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else{
             print("Fotocamera posteriore non disponibile")
             return
         }
-
+         */
+        
         do {
             let input = try AVCaptureDeviceInput(device: frontalCamera)
             if let session = captureSession, session.canAddInput(input) {

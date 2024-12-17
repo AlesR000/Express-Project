@@ -10,7 +10,6 @@ import SwiftUI
 struct CalendarWeekView: View {
     
     @State private var currentWeekStart: Date = getStartOfCurrentWeek()
-    
     var currentDay = Date()
     @Binding var selectedDay: Date?
     

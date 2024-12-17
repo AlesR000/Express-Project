@@ -36,18 +36,19 @@ struct FilteredNotes: View {
                             
                             Text(note.wrappedTitle)
                                 .font(.title2)
-                                .fontWeight(.semibold)
+                                //.fontWeight(.semibold)
                             
                             Spacer()
                             
                             Image(emojis[Int(note.mood) - 1])
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height:50)
+                                .frame(height:40)
                              
                         }
                         
                         Text(note.wrappedBody)
+                            .fontWeight(.light)
                         
                         HStack{
                             

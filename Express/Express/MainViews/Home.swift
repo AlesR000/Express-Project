@@ -30,11 +30,12 @@ struct Home: View {
         label:{
             
             HStack{
-                
-                Image("AddButton")
-                    .resizable()
-                    .frame(width: 50,height: 50)
+                Spacer()
                 Text("Express your day")
+                    .foregroundStyle(.black)
+                    .padding()
+                    .background(.yellow)
+                    .containerShape(Capsule())
                 Spacer()
                 
             }

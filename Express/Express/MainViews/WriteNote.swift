@@ -19,7 +19,7 @@ struct WriteNote: View {
     
     @State var selectedPhoto: PhotosPickerItem?
     @State var selectedPhotoData: Data?
-    
+    @State var recordedAudio: Data?
     
     let moods: [String] = ["amazing", "happy", "neutral", "sad", "terrible"]
     
@@ -39,7 +39,7 @@ struct WriteNote: View {
                     note.mood = mood
                     note.date = Date.now
                     note.image = selectedPhotoData
-                    
+                    note.recording = recordedAudio
                     
                     try? moc.save()
                     showModal.toggle()
@@ -108,7 +108,11 @@ struct WriteNote: View {
         Spacer()
             
         
-        WritingToolBar(selectedPhoto: $selectedPhoto, selectedPhotoData: $selectedPhotoData)
+        NoteToolBar(
+            selectedPhoto: $selectedPhoto,
+            selectedPhotoData: $selectedPhotoData,
+            recordedAudio: $recordedAudio
+        )
         
     }
     

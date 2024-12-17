@@ -43,31 +43,63 @@ struct NoteView: View {
             
                 }
                 
-                Text(note.body ?? "no body")
-                    .padding()
                 
-                //DataToImage(note.wrappedImage)
-                //DataToImage(note.wrappedImage).resizable().scaledToFit().frame(height: 200)
+                
+                    if note.recording != nil{
+                        Text("there is audio")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                    }
+                
+                    Text(note.body ?? "no body")
+                        .fontWeight(.light)
+                        .padding()
+                    
+                        
+                        
+                    DisplayImage(note: note)
+                        .padding()
                 
             }
             .padding(5)
-            .background(.thinMaterial)
+            .background(.white)
             .containerShape(RoundedRectangle(cornerRadius: 15))
             .padding()
         }
     }
     
-    
     /*
-    func DataToImage(_ data: Data) -> Image {
-        let uiImageFromData = UIImage(data: data)
-        let result = Image(uiImage: uiImageFromData?? UIImage(named: "placeholder"))
-        return result
+    func DataToAudio(_ data: Data?) ->  {
+        
     }
     */
     
 }
 
+struct DisplayImage: View{
+    
+    var note: Note
+    
+    var body: some View{
+        
+        if note.image != nil{
+            DataToImage(note.image)
+                .resizable()
+                .scaledToFit()
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+        }
+        
+    }
+    
+    func DataToImage(_ data: Data?) -> Image {
+        if let data {
+            let uiImageFromData = UIImage(data: data)
+            let result = Image(uiImage: uiImageFromData!)
+            return result
+        }
+        return Image("")
+    }
+}
 /*
 #Preview {
     NoteView()
