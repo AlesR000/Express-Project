@@ -17,6 +17,9 @@ Express is a journaling app built on Xcode. Its use is to keep track of your day
 2. Open the project in Xcode.
 3. Run the app on a simulator or connected device.
 
+## License
+This project is licensed under the MIT License. See the [LICENSE](MIT License) file for details.
+
 ### Screens
 
 Here are some app screenshot to better understand how it looks!
