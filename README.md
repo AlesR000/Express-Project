@@ -2,7 +2,7 @@
 
 Express is a journaling app built on Xcode. Its use is to keep track of your day by day entries, focusing on personalizing each entry with photos, audio recordings and other features.
 
-![App Screenshot](LightIcon V2.png)
+![App Screenshot](Icon.PNG)
 
 
 ## Features
@@ -17,7 +17,7 @@ Express is a journaling app built on Xcode. Its use is to keep track of your day
 2. Open the project in Xcode.
 3. Run the app on a simulator or connected device.
 
-###Screens
+### Screens
 
 Here are some app screenshot to better understand how it looks!
 
