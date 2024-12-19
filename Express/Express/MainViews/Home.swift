@@ -41,6 +41,8 @@ struct Home: View {
                 
             }
             .padding()
+            .accessibilityLabel("add note")
+            .accessibilityHint("Press to enter a note")
         }
         .sheet(isPresented: $showWritingScreen){
             WriteNote(showModal: $showWritingScreen)

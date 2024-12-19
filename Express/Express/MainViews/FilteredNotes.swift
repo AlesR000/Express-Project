@@ -79,6 +79,8 @@ struct FilteredNotes: View {
                     }
                     
                 }
+                .accessibilityLabel(note.wrappedTitle)
+                .accessibilityHint("Press to open the note, swipe left to delete the note")
                 
             }
             .onDelete(perform: deleteNote)

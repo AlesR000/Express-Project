@@ -51,6 +51,8 @@ struct WriteNote: View {
                 .padding(5)
                 .background(Color.white)
                 .containerShape(RoundedRectangle(cornerRadius: 10))
+                .accessibilityLabel("Save note")
+                .accessibilityHint("Press to save your note")
                 
                 
             }.padding()
@@ -67,17 +69,20 @@ struct WriteNote: View {
                             .scaledToFit()
                             .grayscale(selectedEmoji == index ? 0 : 1.0)
                             .frame(maxWidth: .infinity)
+                            .accessibilityHint("")
                         
                         Text(moods[index-1])
                             .foregroundStyle(.white)
                             .font(.footnote)
                             .frame(maxWidth: .infinity)
+                            .accessibilityHint("")
                     }
                     .padding(10)
                     .onTapGesture {
                         mood = Int16(6-index)
                         selectedEmoji = index
                     }
+                    .accessibilityHint("Press to select this as your current mood")
                     
                 }
                 
@@ -94,10 +99,12 @@ struct WriteNote: View {
                 .accessibilityLabel("Title") TITOLO
                 .accessibilityHint("Enter a title") DESCRIZIONE
             */
+            .accessibilityHint("Write the title of your note here")
             
             TextField("write a note", text: $noteBody, axis: .vertical)
                 .frame(maxHeight: .infinity)
                 .padding()
+                .accessibilityHint("Write the body of your note here")
             
             if let selectedPhotoData {
                 Image(uiImage: UIImage(data: selectedPhotoData)!)

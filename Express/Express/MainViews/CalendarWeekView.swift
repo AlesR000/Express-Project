@@ -24,6 +24,8 @@ struct CalendarWeekView: View {
                 }) {
                     Image(systemName: "chevron.left")
                         .foregroundStyle(.white)
+                        .accessibilityLabel("previous")
+                        .accessibilityHint("Press to go to the previous week")
                 }
                 Spacer()
                 
@@ -39,6 +41,8 @@ struct CalendarWeekView: View {
                 }) {
                     Image(systemName: "chevron.right")
                         .foregroundStyle(.white)
+                        .accessibilityLabel("next")
+                        .accessibilityHint("Press to go to the next week")
                 }
             }
             
@@ -66,6 +70,8 @@ struct CalendarWeekView: View {
                     }
                     .background(RoundedRectangle(cornerRadius: 10).fill(.thickMaterial))
                     .onTapGesture {selectedDay = day + 86400}
+                    .accessibilityLabel(day.formatted())
+                    .accessibilityHint("tap to search for notes written this day")
                     
                 }
                 

@@ -27,14 +27,17 @@ struct NoteToolBar: View {
             Spacer()
             
             CameraIcon()
+                .accessibilityHint("Press to open the camera")
             
             Spacer()
             
             GalleryToolBar(selectedPhoto: $selectedPhoto, selectedPhotoData: $selectedPhotoData)
+                .accessibilityHint("Press to add a photo from gallery")
             
             Spacer()
             
             AudioToolBar(recordedAudio: $recordedAudio)
+                .accessibilityHint("Press to record audio, press again to stop")
             
             Spacer()
             
